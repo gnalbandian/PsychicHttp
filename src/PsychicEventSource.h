@@ -77,10 +77,6 @@ class PsychicEventSourceResponse: public PsychicResponse {
     virtual esp_err_t send() override;
 };
 
-<<<<<<< HEAD
 std::string generateEventMessage(const char *message, const char *event, uint32_t id, uint32_t reconnect);
-=======
-// String generateEventMessage(const char *message, const char *event, uint32_t id, uint32_t reconnect);
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 
 #endif /* PsychicEventSource_H_ */

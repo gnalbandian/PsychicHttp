@@ -52,18 +52,13 @@ enum HTTPAuthMethod
   DIGEST_AUTH
 };
 
-<<<<<<< HEAD
 void urlDecode(const char* encoded, char* decoded, size_t buffer_size);
-=======
-char* urlDecode(const char *encoded);
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 
 class PsychicHttpServer;
 class PsychicRequest;
 // class PsychicWebSocketRequest;
 class PsychicClient;
 
-<<<<<<< HEAD
 // Filter function definition
 typedef bool (*PsychicRequestFilterFunction)(PsychicRequest *request);
 
@@ -73,22 +68,9 @@ typedef void (*PsychicClientCallback)(PsychicClient *client);
 // // Callback definitions
 typedef esp_err_t (*PsychicHttpRequestCallback)(PsychicRequest *request);
 typedef esp_err_t (*PsychicJsonRequestCallback)(PsychicRequest *request, JsonVariant json);
-=======
-// //filter function definition
-// typedef std::function<bool(PsychicRequest *request)> PsychicRequestFilterFunction;
-
-// //client connect callback
-// typedef std::function<void(PsychicClient *client)> PsychicClientCallback;
-
-// //callback definitions
-// typedef std::function<esp_err_t(PsychicRequest *request)> PsychicHttpRequestCallback;
-// typedef std::function<esp_err_t(PsychicRequest *request, JsonVariant &json)> PsychicJsonRequestCallback;
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 
 typedef bool (*PsychicRequestFilterFunction)(PsychicRequest *request);
 typedef void (*PsychicClientCallback)(PsychicClient *client);
-typedef esp_err_t (*PsychicHttpRequestCallback)(PsychicRequest *request);
-typedef esp_err_t (*PsychicJsonRequestCallback)(PsychicRequest *request, JsonVariant &json);
 
 struct HTTPHeader
 {
@@ -103,16 +85,7 @@ class DefaultHeaders
 public:
   DefaultHeaders() {}
 
-<<<<<<< HEAD
   void addHeader(const char * field, const char * value)
-=======
-  // void addHeader(const String& field, const String& value)
-  // {
-  //   addHeader(field.c_str(), value.c_str());
-  // }
-
-  void addHeader(const char *field, const char *value)
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
   {
     HTTPHeader header;
     if (field && value)
@@ -132,11 +105,7 @@ public:
     }
   }
 
-<<<<<<< HEAD
   const std::list<HTTPHeader>& getHeaders() const { return _headers; }
-=======
-  const std::list<HTTPHeader> &getHeaders() { return _headers; }
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 
   // delete the copy constructor, singleton class
   DefaultHeaders(DefaultHeaders const &) = delete;

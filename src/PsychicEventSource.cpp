@@ -117,17 +117,10 @@ void PsychicEventSource::closeCallback(PsychicClient *client) {
 
 void PsychicEventSource::send(const char *message, const char *event, uint32_t id, uint32_t reconnect)
 {
-<<<<<<< HEAD
   std::string ev = generateEventMessage(message, event, id, reconnect);
   for(PsychicClient *c : _clients) {
     ((PsychicEventSourceClient*)c->_friend)->sendEvent(ev.c_str());
   }
-=======
-  // String ev = generateEventMessage(message, event, id, reconnect);
-  // for(PsychicClient *c : _clients) {
-    // ((PsychicEventSourceClient*)c->_friend)->sendEvent(ev.c_str());
-  // }
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 }
 
 /*****************************************/
@@ -144,13 +137,8 @@ PsychicEventSourceClient::~PsychicEventSourceClient(){
 }
 
 void PsychicEventSourceClient::send(const char *message, const char *event, uint32_t id, uint32_t reconnect){
-<<<<<<< HEAD
   std::string ev = generateEventMessage(message, event, id, reconnect);
   sendEvent(ev.c_str());
-=======
-  // String ev = generateEventMessage(message, event, id, reconnect);
-  // sendEvent(ev.c_str());
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 }
 
 void PsychicEventSourceClient::sendEvent(const char *event) {
@@ -209,7 +197,6 @@ esp_err_t PsychicEventSourceResponse::send() {
 // Event Message Generator
 /*****************************************/
 
-<<<<<<< HEAD
 std::string generateEventMessage(const char* message, const char* event, uint32_t id, uint32_t reconnect) {
   std::string ev;
 
@@ -240,35 +227,3 @@ std::string generateEventMessage(const char* message, const char* event, uint32_
   ev += "\r\n";
   return ev;
 }
-=======
-// String generateEventMessage(const char *message, const char *event, uint32_t id, uint32_t reconnect) {
-//   String ev = "";
-
-//   if(reconnect){
-//     ev += "retry: ";
-//     ev += String(reconnect);
-//     ev += "\r\n";
-//   }
-
-//   if(id){
-//     ev += "id: ";
-//     ev += String(id);
-//     ev += "\r\n";
-//   }
-
-//   if(event != NULL){
-//     ev += "event: ";
-//     ev += String(event);
-//     ev += "\r\n";
-//   }
-
-//   if(message != NULL){
-//     ev += "data: ";
-//     ev += String(message);
-//     ev += "\r\n";
-//   }
-//   ev += "\r\n";
-
-//   return ev;
-// }
->>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
