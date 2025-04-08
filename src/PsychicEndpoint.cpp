@@ -37,7 +37,12 @@ PsychicHandler * PsychicEndpoint::handler()
   return _handler;
 }
 
+<<<<<<< HEAD
 const char* PsychicEndpoint::uri() {
+=======
+// String PsychicEndpoint::uri() {
+char* PsychicEndpoint::uri() {
+>>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
   return _uri;
 }
 

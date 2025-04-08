@@ -8,9 +8,15 @@
 #include "PsychicJson.h"
 // #include "WiFi.h"
 
+<<<<<<< HEAD
 PsychicHttpServer::PsychicHttpServer() //:
   // _onOpen(NULL),
   // _onClose(NULL)
+=======
+PsychicHttpServer::PsychicHttpServer() :
+  _onOpen(nullptr),
+  _onClose(nullptr)
+>>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 {
   maxRequestBodySize = MAX_REQUEST_BODY_SIZE;
   maxUploadSize = MAX_UPLOAD_SIZE;
@@ -246,7 +252,11 @@ esp_err_t PsychicHttpServer::openCallback(httpd_handle_t hd, int sockfd)
     server->addClient(client);
   }
 
+<<<<<<< HEAD
   // user callback
+=======
+  //user callback
+>>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
   if (server->_onOpen != nullptr)
     server->_onOpen(client);
 
@@ -265,7 +275,7 @@ void PsychicHttpServer::closeCallback(httpd_handle_t hd, int sockfd)
 
   //lookup our client
   PsychicClient *client = server->getClient(sockfd);
-  if (client != NULL)
+  if (client != nullptr)
   {
     //give our handlers a chance to handle a disconnect first
     for (PsychicEndpoint * endpoint : server->_endpoints)
@@ -275,7 +285,7 @@ void PsychicHttpServer::closeCallback(httpd_handle_t hd, int sockfd)
     }
 
     //do we have a callback attached?
-    if (server->_onClose != NULL)
+    if (server->_onClose != nullptr)
       server->_onClose(client);
 
     //remove it from our list
@@ -336,6 +346,7 @@ const std::list<PsychicClient*>& PsychicHttpServer::getClientList() {
 void urlDecode(const char* encoded, char* decoded, size_t buffer_size) {
   if (!encoded || !decoded || buffer_size == 0) return;
 
+<<<<<<< HEAD
   size_t length = strlen(encoded);
   size_t j = 0;
 
@@ -356,4 +367,64 @@ void urlDecode(const char* encoded, char* decoded, size_t buffer_size) {
   }
 
   decoded[j] = '\0';  // Null-terminate the output string
+=======
+// String urlDecode(const char* encoded)
+// {
+//   size_t length = strlen(encoded);
+//   char* decoded = (char*)malloc(length + 1);
+//   if (!decoded) {
+//     return "";
+//   }
+
+//   size_t i, j = 0;
+//   for (i = 0; i < length; ++i) {
+//       if (encoded[i] == '%' && isxdigit(encoded[i + 1]) && isxdigit(encoded[i + 2])) {
+//           // Valid percent-encoded sequence
+//           int hex;
+//           sscanf(encoded + i + 1, "%2x", &hex);
+//           decoded[j++] = (char)hex;
+//           i += 2;  // Skip the two hexadecimal characters
+//       } else if (encoded[i] == '+') {
+//           // Convert '+' to space
+//           decoded[j++] = ' ';
+//       } else {
+//           // Copy other characters as they are
+//           decoded[j++] = encoded[i];
+//       }
+//   }
+
+//   decoded[j] = '\0';  // Null-terminate the decoded string
+
+//   String output(decoded);
+//   free(decoded);
+
+//   return output;
+// }
+char* urlDecode(const char* encoded) {
+  size_t length = strlen(encoded);
+  char* decoded = (char*)malloc(length + 1); // Allocate enough memory
+  if (!decoded) {
+    return nullptr; // Return NULL on allocation failure
+  }
+
+  size_t i, j = 0;
+  for (i = 0; i < length; ++i) {
+    if (encoded[i] == '%' && isxdigit((unsigned char)encoded[i + 1]) && isxdigit((unsigned char)encoded[i + 2])) {
+      // Valid percent-encoded sequence
+      int hex;
+      sscanf(encoded + i + 1, "%2x", &hex);
+      decoded[j++] = (char)hex;
+      i += 2; // Skip the two hexadecimal characters
+    } else if (encoded[i] == '+') {
+      // Convert '+' to space
+      decoded[j++] = ' ';
+    } else {
+      // Copy other characters as they are
+      decoded[j++] = encoded[i];
+    }
+  }
+
+  decoded[j] = '\0'; // Null-terminate the decoded string
+  return decoded; // Return the decoded string
+>>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 }

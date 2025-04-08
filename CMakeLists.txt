@@ -7,7 +7,7 @@ set(COMPONENT_ADD_INCLUDEDIRS
 )
 
 set(COMPONENT_REQUIRES
-    "urlencode"
+    # "urlencode"
     "esp_https_server"
     "arduinojson"
 )

@@ -7,7 +7,15 @@ PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, const std::str
     : PsychicResponse(request)
 {
 
+<<<<<<< HEAD
   std::string _path = path;
+=======
+// PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, FS &fs, const String& path, const String& contentType, bool download)
+PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, FS &fs, const char* path, const char* contentType, bool download)
+ : PsychicResponse(request) {
+  //_code = 200;
+  String _path(path);
+>>>>>>> 1bff4fdd0a1375b77fbcbd0cf4e94fe2aa08f847
 
   // Try gzip if requested file doesn't exist and gzip version exists
   if (!download && access(_path.c_str(), F_OK) != 0 && access((_path + ".gz").c_str(), F_OK) == 0)
