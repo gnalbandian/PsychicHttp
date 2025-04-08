@@ -29,44 +29,94 @@ esp_err_t PsychicClient::close()
   return err;
 }
 
-IPAddress PsychicClient::localIP()
+// IPAddress PsychicClient::localIP()
+// {
+//   IPAddress address(0,0,0,0);
+
+//   char ipstr[INET6_ADDRSTRLEN];
+//   struct sockaddr_in6 addr;   // esp_http_server uses IPv6 addressing
+//   socklen_t addr_size = sizeof(addr);
+
+//   if (getsockname(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
+//     ESP_LOGE(PH_TAG, "Error getting client IP");
+//     return address;
+//   }
+
+//   // Convert to IPv4 string
+//   inet_ntop(AF_INET, &addr.sin6_addr.un.u32_addr[3], ipstr, sizeof(ipstr));
+//   //ESP_LOGD(PH_TAG, "Client Local IP => %s", ipstr);
+//   address.fromString(ipstr);
+
+//   return address;
+// }
+
+ip4_addr_t PsychicClient::localIP()
 {
-  IPAddress address(0,0,0,0);
+    ip4_addr_t myIP;
+    inet_aton("0.0.0.0", &myIP);  // Default to 0.0.0.0
 
-  char ipstr[INET6_ADDRSTRLEN];
-  struct sockaddr_in6 addr;   // esp_http_server uses IPv6 addressing
-  socklen_t addr_size = sizeof(addr);
+    struct sockaddr_in6 addr;  // ESP-IDF uses IPv6 in esp_http_server
+    socklen_t addr_size = sizeof(addr);
 
-  if (getsockname(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
-    ESP_LOGE(PH_TAG, "Error getting client IP");
-    return address;
-  }
+    if (getsockname(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
+        ESP_LOGE(PH_TAG, "Error getting client IP");
+        return myIP;
+    }
 
-  // Convert to IPv4 string
-  inet_ntop(AF_INET, &addr.sin6_addr.un.u32_addr[3], ipstr, sizeof(ipstr));
-  //ESP_LOGD(PH_TAG, "Client Local IP => %s", ipstr);
-  address.fromString(ipstr);
+    // Extract IPv4-mapped address from sockaddr_in6
+    if (IN6_IS_ADDR_V4MAPPED(&addr.sin6_addr)) {
+        uint32_t ipv4_raw = addr.sin6_addr.un.u32_addr[3]; // Extract IPv4 part
+        myIP.addr = ipv4_raw; // Store as ip4_addr_t
+    } else {
+        ESP_LOGE(PH_TAG, "Not an IPv4-mapped address");
+    }
 
-  return address;
+    ESP_LOGD(PH_TAG, "Client Local IP => %s", ip4addr_ntoa(&myIP));
+    return myIP;
 }
 
-IPAddress PsychicClient::remoteIP()
+// IPAddress PsychicClient::remoteIP()
+// {
+//   IPAddress address(0,0,0,0);
+
+//   char ipstr[INET6_ADDRSTRLEN];
+//   struct sockaddr_in6 addr;   // esp_http_server uses IPv6 addressing
+//   socklen_t addr_size = sizeof(addr);
+
+//   if (getpeername(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
+//     ESP_LOGE(PH_TAG, "Error getting client IP");
+//     return address;
+//   }
+
+//   // Convert to IPv4 string
+//   inet_ntop(AF_INET, &addr.sin6_addr.un.u32_addr[3], ipstr, sizeof(ipstr));
+//   //ESP_LOGD(PH_TAG, "Client Remote IP => %s", ipstr);
+//   address.fromString(ipstr);
+
+//   return address;
+// }
+
+ip4_addr_t PsychicClient::remoteIP()
 {
-  IPAddress address(0,0,0,0);
+    ip4_addr_t remoteIP;
+    inet_aton("0.0.0.0", &remoteIP);  // Default to 0.0.0.0
 
-  char ipstr[INET6_ADDRSTRLEN];
-  struct sockaddr_in6 addr;   // esp_http_server uses IPv6 addressing
-  socklen_t addr_size = sizeof(addr);
+    struct sockaddr_in6 addr;  // ESP-IDF uses IPv6 in esp_http_server
+    socklen_t addr_size = sizeof(addr);
 
-  if (getpeername(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
-    ESP_LOGE(PH_TAG, "Error getting client IP");
-    return address;
-  }
+    if (getpeername(_socket, (struct sockaddr *)&addr, &addr_size) < 0) {
+        ESP_LOGE(PH_TAG, "Error getting remote IP");
+        return remoteIP;
+    }
 
-  // Convert to IPv4 string
-  inet_ntop(AF_INET, &addr.sin6_addr.un.u32_addr[3], ipstr, sizeof(ipstr));
-  //ESP_LOGD(PH_TAG, "Client Remote IP => %s", ipstr);
-  address.fromString(ipstr);
+    // Extract IPv4-mapped address from sockaddr_in6
+    if (IN6_IS_ADDR_V4MAPPED(&addr.sin6_addr)) {
+        uint32_t ipv4_raw = addr.sin6_addr.un.u32_addr[3]; // Extract IPv4 part
+        remoteIP.addr = ipv4_raw; // Store as ip4_addr_t
+    } else {
+        ESP_LOGE(PH_TAG, "Not an IPv4-mapped address");
+    }
 
-  return address;
+    ESP_LOGD(PH_TAG, "Client Remote IP => %s", ip4addr_ntoa(&remoteIP));
+    return remoteIP;
 }
