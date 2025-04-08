@@ -3,7 +3,8 @@
 #include "PsychicRequest.h"
 
 
-PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, FS &fs, const String& path, const String& contentType, bool download)
+// PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, FS &fs, const String& path, const String& contentType, bool download)
+PsychicFileResponse::PsychicFileResponse(PsychicRequest *request, FS &fs, const char* path, const char* contentType, bool download)
  : PsychicResponse(request) {
   //_code = 200;
   String _path(path);

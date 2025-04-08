@@ -37,7 +37,8 @@ PsychicHandler * PsychicEndpoint::handler()
   return _handler;
 }
 
-String PsychicEndpoint::uri() {
+// String PsychicEndpoint::uri() {
+char* PsychicEndpoint::uri() {
   return _uri;
 }
 

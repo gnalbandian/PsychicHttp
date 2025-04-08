@@ -2,6 +2,7 @@
 #define PsychicClient_h
 
 #include "PsychicCore.h"
+#include <lwip/sockets.h>
 
 /*
 * PsychicClient :: Generic wrapper around the ESP-IDF socket
@@ -24,12 +25,12 @@ class PsychicClient {
 
     bool operator==(PsychicClient& rhs) const { return _socket == rhs.socket(); }
 
-    httpd_handle_t server();
-    int socket();
+    httpd_handle_t server() const;
+    int socket() const;
     esp_err_t close();
 
-    IPAddress localIP();
-    IPAddress remoteIP();
+    ip4_addr_t localIP();
+    ip4_addr_t remoteIP();
 };
 
 #endif

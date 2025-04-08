@@ -116,10 +116,10 @@ void PsychicEventSource::closeCallback(PsychicClient *client) {
 
 void PsychicEventSource::send(const char *message, const char *event, uint32_t id, uint32_t reconnect)
 {
-  String ev = generateEventMessage(message, event, id, reconnect);
-  for(PsychicClient *c : _clients) {
-    ((PsychicEventSourceClient*)c->_friend)->sendEvent(ev.c_str());
-  }
+  // String ev = generateEventMessage(message, event, id, reconnect);
+  // for(PsychicClient *c : _clients) {
+    // ((PsychicEventSourceClient*)c->_friend)->sendEvent(ev.c_str());
+  // }
 }
 
 /*****************************************/
@@ -136,8 +136,8 @@ PsychicEventSourceClient::~PsychicEventSourceClient(){
 }
 
 void PsychicEventSourceClient::send(const char *message, const char *event, uint32_t id, uint32_t reconnect){
-  String ev = generateEventMessage(message, event, id, reconnect);
-  sendEvent(ev.c_str());
+  // String ev = generateEventMessage(message, event, id, reconnect);
+  // sendEvent(ev.c_str());
 }
 
 void PsychicEventSourceClient::sendEvent(const char *event) {
@@ -193,33 +193,33 @@ esp_err_t PsychicEventSourceResponse::send() {
 // Event Message Generator
 /*****************************************/
 
-String generateEventMessage(const char *message, const char *event, uint32_t id, uint32_t reconnect) {
-  String ev = "";
+// String generateEventMessage(const char *message, const char *event, uint32_t id, uint32_t reconnect) {
+//   String ev = "";
 
-  if(reconnect){
-    ev += "retry: ";
-    ev += String(reconnect);
-    ev += "\r\n";
-  }
+//   if(reconnect){
+//     ev += "retry: ";
+//     ev += String(reconnect);
+//     ev += "\r\n";
+//   }
 
-  if(id){
-    ev += "id: ";
-    ev += String(id);
-    ev += "\r\n";
-  }
+//   if(id){
+//     ev += "id: ";
+//     ev += String(id);
+//     ev += "\r\n";
+//   }
 
-  if(event != NULL){
-    ev += "event: ";
-    ev += String(event);
-    ev += "\r\n";
-  }
+//   if(event != NULL){
+//     ev += "event: ";
+//     ev += String(event);
+//     ev += "\r\n";
+//   }
 
-  if(message != NULL){
-    ev += "data: ";
-    ev += String(message);
-    ev += "\r\n";
-  }
-  ev += "\r\n";
+//   if(message != NULL){
+//     ev += "data: ";
+//     ev += String(message);
+//     ev += "\r\n";
+//   }
+//   ev += "\r\n";
 
-  return ev;
-}
+//   return ev;
+// }
